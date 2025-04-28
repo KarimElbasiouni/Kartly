@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import ProductCard from "@/components/ui/product-card"
 import { featuredProducts } from "@/data/products"
+import Link from "next/link"
 
 export default function FeaturedProducts() {
   return (
@@ -24,9 +25,11 @@ export default function FeaturedProducts() {
           ))}
         </div>
         <div className="flex justify-center mt-10">
-          <Button size="lg" variant="outline">
-            View All Sneakers
-          </Button>
+            <Link href="/products">
+                <Button size="lg" variant="outline">
+                    View All Sneakers
+                </Button>
+            </Link>
         </div>
       </div>
     </section>

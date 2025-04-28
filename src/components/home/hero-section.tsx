@@ -2,7 +2,7 @@ import Image from "next/image"
 import { ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-
+import Link from "next/link"
 export default function HeroSection() {
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
@@ -20,13 +20,17 @@ export default function HeroSection() {
               the hottest releases.
             </p>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Button size="lg">
-                Shop Collection
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline">
-                New Releases
-              </Button>
+                <Link href="/products">
+                    <Button size="lg">
+                    Shop Collection
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                    </Button>
+                </Link>
+                <Link href="/products">
+                    <Button size="lg" variant="outline">
+                    New Releases
+                    </Button>
+                </Link>
             </div>
           </div>
           <div className="mx-auto w-full max-w-[500px] aspect-video relative rounded-xl overflow-hidden">
