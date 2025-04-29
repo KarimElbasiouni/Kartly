@@ -13,3 +13,33 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Product {
+  id          Int            @id @default(autoincrement())
+  name        String
+  brand       String
+  price       Decimal        @db.Numeric(4,2)
+  sku         String         @unique
+  description String?
+  // 1 → N images
+  images      ProductImage[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model ProductImage {
+  id        Int      @id @default(autoincrement())
+  url       String   // S3 url
+  alt       String?
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  sortOrder Int      @default(0)
+}
+
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
