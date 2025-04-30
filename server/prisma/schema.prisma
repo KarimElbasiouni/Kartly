@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -18,7 +17,7 @@ model Product {
   id          Int            @id @default(autoincrement())
   name        String
   brand       String
-  price       Decimal        @db.Numeric(4,2)
+  price       Decimal        @db.Decimal(10,2)
   sku         String         @unique
   description String?
   // 1 → N images
