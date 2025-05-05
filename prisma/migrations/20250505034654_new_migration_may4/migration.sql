@@ -3,7 +3,7 @@ CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "brand" TEXT NOT NULL,
-    "price" DECIMAL(4,2) NOT NULL,
+    "price" DECIMAL(10,2) NOT NULL,
     "sku" TEXT NOT NULL,
     "description" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
