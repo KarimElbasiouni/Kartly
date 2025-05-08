@@ -1,0 +1,8 @@
+[
+    {
+      "AllowedHeaders": ["*"],
+      "AllowedMethods": ["GET", "PUT", "POST", "DELETE"],
+      "AllowedOrigins": ["http://localhost:3000", "https://VERCEL_DOMAIN_WHEN_DEPLOYING.com"],
+      "ExposeHeaders": []
+    }
+]

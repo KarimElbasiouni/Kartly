@@ -2,7 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["example.com"],
+    domains: [
+      "example.com",
+      "sneaker-product-images.s3.amazonaws.com",
+      "sneaker-product-images.s3.us-east-2.amazonaws.com",
+    ],
     remotePatterns: [
       {
         protocol: "https",
