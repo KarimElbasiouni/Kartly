@@ -1,0 +1,56 @@
+import fs from 'fs';
+import path from 'path';
+import { PrismaClient } from '@prisma/client';
+import { uploadImageToS3 } from '../src/lib/s3';
+
+const prisma = new PrismaClient();
+
+async function uploadSeedImages() {
+  const seedImagesDir = path.join(process.cwd(), 'seed-images');
+  
+  // Get all products
+  const products = await prisma.product.findMany();
+  
+  for (const product of products) {
+    // Find a matching image in the seed-images directory
+    // For example, image files could be named like "nike-pegasus-1.jpg"
+    const brandSlug = product.brand.toLowerCase().replace(/\s+/g, '-');
+    const nameSlug = product.name.toLowerCase().replace(/\s+/g, '-');
+    const potentialFileName = `${brandSlug}-${nameSlug}.jpg`;
+    const imagePath = path.join(seedImagesDir, potentialFileName);
+    
+    // Check if file exists
+    if (fs.existsSync(imagePath)) {
+      const fileBuffer = fs.readFileSync(imagePath);
+      const contentType = 'image/jpeg'; // Adjust based on your image format
+      
+      // Upload to S3
+      const imageUrl = await uploadImageToS3(
+        fileBuffer,
+        potentialFileName,
+        contentType
+      );
+      
+      // Create ProductImage in database
+      await prisma.productImage.create({
+        data: {
+          url: imageUrl,
+          alt: product.name,
+          productId: product.id,
+        },
+      });
+      
+      console.log(`Uploaded image for ${product.name}: ${imageUrl}`);
+    } else {
+      console.log(`No image found for ${product.name}`);
+    }
+  }
+  
+  console.log('Seed image upload complete!');
+}
+
+uploadSeedImages()
+  .catch(console.error)
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
