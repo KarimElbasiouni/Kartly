@@ -100,7 +100,7 @@ export default async function AdminProductsPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex space-x-2">
-                        <Link href={`/api/products/edit?id=${product.id}`} passHref>
+                        <Link href={`/api/products/edit/${product.id}`} passHref>
                           <Button variant="outline" size="sm">
                             <PencilIcon className="h-4 w-4" />
                             <span className="sr-only">Edit</span>
